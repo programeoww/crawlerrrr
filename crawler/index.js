@@ -38,8 +38,7 @@ const Crawler = (setting = {...setting, serverSuck: false}) => {
   }
   
   const RemoveSpace = (string) => {
-    //Đoạn này nó đang lỗi anh này
-    return string
+    return string.replace(/src="data:/gm, 'data-src="data:').replace(/data-src="http/gm, 'src="http')
   }
 
   const getProduct = (productLink, previewImg) => {
@@ -59,6 +58,7 @@ const Crawler = (setting = {...setting, serverSuck: false}) => {
             errorProduct.push(productLink)
           }
           // document(setting.product_price_selector).text()
+
           try {
             const data = {
               name: document(setting.product_name_selector).text(),
