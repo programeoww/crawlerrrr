@@ -10,6 +10,14 @@ const WooCommerce = new WooCommerceRestApi({
     version: "wc/v3",
   });
   
+
+  // const WooCommerce = new WooCommerceRestApi({
+  //   url: "http://127.1.1.22",
+  //   consumerKey: "ck_fc4f0bfc4aa50c4b5f8c4c71de92bcf10928d090",
+  //   consumerSecret: "cs_ac5462a431ffa286578a3de7be63f021e506ba01",
+  //   version: "wc/v3",
+  // });
+  
 //   // WooCommerce.get("products/attributes")
 //   //   .then((response) => {
 //   //     console.log(response.data);
@@ -42,32 +50,32 @@ const defaultSetting = {
   serverSuck: true
 }
 
-Crawler(defaultSetting).then(data => {
-  a()
-  async function a() {
-    for (let index = 0; index < data.length; index++) {
-      const element = data[index];
-      const res = await WooCommerce.post("products", element)
-      console.log(res.statusText)
-    }
-  }
-  console.log(data.length)
-})
-
-// WooCommerce.get("products",{
-//   per_page: 100
-// })
-//   .then((response) => {
-//     const data = response.data
-//     a()
-//     async function a() {
-//       for (let index = 0; index < data.length; index++) {
-//         const element = data[index];
-//         const res = await WooCommerce.delete("products/" + element.id, {force: true})
-//         console.log(res.statusText)
-//       }
+// Crawler(defaultSetting).then(data => {
+//   a()
+//   async function a() {
+//     for (let index = 0; index < data.length; index++) {
+//       const element = data[index];
+//       const res = await WooCommerce.post("products", element)
+//       console.log(res.statusText)
 //     }
-//   })
-//   .catch((error) => {
-//     console.log(error.response.data);
-//   });
+//   }
+//   console.log(data.length)
+// })
+
+WooCommerce.get("products",{
+  per_page: 100
+})
+  .then((response) => {
+    const data = response.data
+    a()
+    async function a() {
+      for (let index = 0; index < data.length; index++) {
+        const element = data[index];
+        const res = await WooCommerce.delete("products/" + element.id, {force: true})
+        console.log(res.statusText)
+      }
+    }
+  })
+  .catch((error) => {
+    console.log(error.response.data);
+  });
