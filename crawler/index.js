@@ -38,6 +38,7 @@ const Crawler = (setting = {...setting, serverSuck: false}) => {
   }
   
   const RemoveSpace = (string) => {
+    //Đoạn này nó đang lỗi anh này
     return string.replace(/\"/gm, "'").replace(/\>(\s\s+)</gm, '').replace(/\n/gm, '').replace(/src="image/gm, 'data-src="image').replace(/data-src="http/gm,'src="http').trim()
   }
 
