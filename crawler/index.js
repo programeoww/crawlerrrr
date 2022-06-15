@@ -39,7 +39,7 @@ const Crawler = (setting = {...setting, serverSuck: false}) => {
   
   const RemoveSpace = (string) => {
     //Đoạn này nó đang lỗi anh này
-    return string.replace(/\"/gm, "'").replace(/\>(\s\s+)</gm, '').replace(/\n/gm, '').replace(/src="image/gm, 'data-src="image').replace(/data-src="http/gm,'src="http').trim()
+    return string
   }
 
   const getProduct = (productLink, previewImg) => {
@@ -115,15 +115,6 @@ const Crawler = (setting = {...setting, serverSuck: false}) => {
 
         FetchPage(pages).then(()=> {
           Promise.all(promises).then(()=>{
-            // if(errorProduct.length > 0){
-            //   let counter = 0
-            //   do{
-            //     getProduct(errorProduct[counter]).then(()=>{
-            //       console.log("a")
-            //       counter+=1
-            //     })
-            //   }while(counter < errorProduct.length)
-            // }
             resolve(csvData)
           })
         })
