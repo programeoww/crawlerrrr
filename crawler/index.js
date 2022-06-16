@@ -3,20 +3,25 @@ import requestPromise from 'request-promise'
 
 
 const defaultSetting = {
-  url: "https://zendatees.com/shop/",//product list url
-  origin: "https://zendatees.com/",//target domain
   category: "Uncategorized",
   product_list_container_selector: ".products > .col",
-  pagination_container_selector: ".nav-pagination a:not(:last-child)",
-  //product detail site
+  pagination_container_selector: ".nav-pagination li:not(:last-child) a",
+  // //product detail site
   product_name_selector: ".product-main .product-title",
-  product_short_description_selector: ".product-main .product-title",
-  product_description_selector: ".woocommerce-Tabs-panel--description",
+  product_short_description_selector: ".product-main .product-short-description",
+  product_description_selector: ".product-footer .product-page-accordian > div > div",
   product_image_selector: ".woocommerce-product-gallery__image img",
+  product_thumbnail_selector: ".woocommerce-product-gallery__image",
+  product_price_selector: ".product-main .woocommerce-Price-amount",
   serverSuck: false
 }
 
-const Crawler = (setting = {...setting, serverSuck: false}) => {
+const Crawler = (userSetting) => {
+  const setting = {
+    ...userSetting,
+    ...defaultSetting
+  }
+
   const csvData = []
   const errorProduct = []
 
@@ -38,7 +43,7 @@ const Crawler = (setting = {...setting, serverSuck: false}) => {
   }
   
   const RemoveSpace = (string) => {
-    return string.replace(/src="data:/gm, 'data-src="data:').replace(/data-src="http/gm, 'src="http')
+    return string.replace(/src="data:/gm, 'data-src="data:').replace(/data-src="http/gm, 'src="http').replace(/(?<=<style>)([\s\S]*)(?=<\/style>)/gm, '')
   }
 
   const getProduct = (productLink, previewImg) => {
